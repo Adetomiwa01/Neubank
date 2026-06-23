@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NeuBank | The Financial Operating System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet"/>
+<link rel="icon" href="https://res.cloudinary.com/diizxxnhm/image/upload/v1782170735/Group_40_epaglz.png">
+<link rel="shortcut icon" href="https://res.cloudinary.com/diizxxnhm/image/upload/v1782170735/Group_40_epaglz.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --or:#E85002;
+  --or2:#C10801;
+  --or3:#F16001;
+  --ink:#0D0D0D;
+  --ink2:#151515;
+  --ash:#666;
+  --silver:#9A9A9A;
+  --snow:#F7F5F2;
+  --white:#ffffff;
+  --line:rgba(13,13,13,0.08);
+  --line-dark:rgba(255,255,255,0.08);
+  --glass:rgba(255,255,255,0.72);
+  --shadow:0 24px 80px rgba(13,13,13,0.10);
+}
+html{scroll-behavior:smooth;font-size:16px;}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--snow);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+}
+img{max-width:100%;display:block;}
+a{text-decoration:none;}
+button,input,textarea{font:inherit;}
+
+/* cursor */
+#cursor{position:fixed;width:10px;height:10px;background:var(--or);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.08s,width 0.25s,height 0.25s,background 0.25s;mix-blend-mode:normal;}
+#cursor-ring{display:none;position:fixed;width:36px;height:36px;border:1.5px solid rgba(232,80,2,0.35);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:transform 0.18s ease,width 0.3s,height 0.3s,border-color 0.3s;will-change:transform;}
+body.hovering #cursor{width:6px;height:6px;}
+body.hovering #cursor-ring{width:52px;height:52px;border-color:rgba(232,80,2,0.6);}
+body.clicking #cursor{transform:translate(-50%,-50%) scale(0.7);}
+
+/* nav */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;height:72px;
+  background:rgba(247,245,242,0.8);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+  transition:background 0.3s,border-color 0.3s;
+}
+nav.dark-nav{background:rgba(13,13,13,0.9);border-bottom-color:var(--line-dark);}
+.nav-wordmark{display:flex;align-items:center;gap:10px;}
+.nav-wordmark-text{font-family:'DM Sans', sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--ink);}
+nav.dark-nav .nav-wordmark-text{color:var(--white);}
+.wordmark-dot{width:7px;height:7px;border-radius:50%;background:var(--or);display:inline-block;}
+.nav-logo{width:124px;height:auto;display:block;}
+.nav-center{display:flex;gap:34px;list-style:none;align-items:center;}
+.nav-center a{font-size:13px;font-weight:500;color:var(--ash);letter-spacing:0.01em;transition:color 0.2s;}
+nav.dark-nav .nav-center a{color:rgba(255,255,255,0.56);}
+.nav-center a:hover,.nav-login:hover,.btn-ghost:hover,.statement-link:hover,.footer-col a:hover{color:var(--or);} 
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-login{font-size:13px;font-weight:500;color:var(--ash);transition:color 0.2s;}
+nav.dark-nav .nav-login{color:rgba(255,255,255,0.56);}
+.nav-signup{font-family:'DM Sans', sans-serif;font-size:13px;font-weight:700;letter-spacing:0.02em;background:var(--or);color:var(--white);padding:10px 18px;border-radius:999px;text-decoration:none;transition:transform 0.15s,background 0.2s;cursor:none;}
+.nav-signup:hover{background:var(--or2);transform:translateY(-1px);}
+
+
+
+.hero {
+  padding: 120px 6%;
+  color: #111;
+  overflow: hidden;
+}
+
+/* GRID */
+.hero .hero-container {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* BADGE */
+.hero .badge {
+  display: inline-block;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: #252525;
+  color: #E85002;
+  font-size: 13px;
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+
+/* HEADING */
+.hero h1 {
+  font-size: 56px;
+  line-height: 1.05;
+  margin: 0 0 18px;
+  letter-spacing: -1px;
+  color: #0f172a;
+}
+
+.hero .accent {
+  color: #E85002;
+}
+
+/* PARAGRAPH */
+.hero p {
+  font-size: 18px;
+  opacity: 0.75;
+  max-width: 520px;
+  margin-bottom: 28px;
+  color: #334155;
+}
+
+/* ACTIONS WRAPPER */
+.hero .hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+/* PRIMARY BUTTON */
+.hero .btn-primary {
+  padding: 14px 22px;
+  background: #E85002;
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.hero .btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* SECONDARY BUTTON */
+.hero .btn-secondary {
+  padding: 14px 22px;
+  border: 1px solid rgba(15, 23, 42, 0.15);
+  color: #0f172a;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.hero .btn-secondary:hover {
+  border-color: rgba(108, 123, 255, 0.4);
+  color: #E85002;
+}
+
+/* TRUST LINE */
+.hero .trust-line {
+  font-size: 13px;
+  opacity: 0.6;
+  color: #475569;
+}
+
+/* VISUAL STACK */
+.hero .hero-visual {
+  position: relative;
+  height: 520px;
+}
+
+.hero .visual-card {
+  position: absolute;
+  border-radius: 18px;
+  overflow: hidden;
+
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.12);
+}
+
+.hero .visual-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* MAIN CARD */
+.hero .card-main {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+/* FLOAT TOP */
+.hero .card-top {
+  width: 220px;
+  height: 160px;
+  top: -20px;
+  right: -20px;
+  transform: rotate(2deg);
+}
+
+/* FLOAT BOTTOM */
+.hero .card-bottom {
+  width: 260px;
+  height: 180px;
+  bottom: -30px;
+  left: -30px;
+  transform: rotate(-3deg);
+}
+
+
+/* live counter */
+.live-widget{position:absolute;right:56px;bottom:72px;z-index:2;width:280px;}
+.widget-label{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.pulse-dot{width:6px;height:6px;border-radius:50%;background:var(--or);animation:pulse-anim 1.8s ease-in-out infinite;}
+@keyframes pulse-anim{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(0.7);}}
+.counter-num{font-family:'DM Sans', sans-serif;font-size:48px;font-weight:800;letter-spacing:-2px;color:var(--ink);line-height:1;}
+.counter-change{font-size:12px;font-weight:500;color:#22c55e;margin-top:8px;display:flex;align-items:center;gap:5px;}
+.widget-rule{width:100%;height:1px;background:linear-gradient(90deg,var(--or),transparent);margin-top:16px;}
+.scroll-hint{position:absolute;bottom:36px;left:56px;z-index:2;display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);font-weight:500;}
+.scroll-line{width:40px;height:1px;background:var(--silver);position:relative;overflow:hidden;}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:var(--or);animation:slide-line 2s ease-in-out infinite;}
+@keyframes slide-line{0%{left:-100%;}100%{left:100%;}}
+
+/* ticker */
+.ticker-bar{background:var(--ink2);padding:14px 0;overflow:hidden;}
+.ticker-inner{display:flex;gap:0;white-space:nowrap;animation:ticker 40s linear infinite;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.ticker-item{display:inline-flex;align-items:center;gap:10px;padding:0 36px;font-size:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.35);flex-shrink:0;border-right:1px solid rgba(255,255,255,0.06);}
+.ticker-item b{color:rgba(255,255,255,0.72);font-weight:600;}
+.ticker-sep{color:var(--or);font-size:10px;}
+
+/* common sections */
+.section-tag{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--or);margin-bottom:20px;display:flex;align-items:center;gap:8px;}
+.section-tag::after{content:'';flex:1;height:1px;background:var(--line);max-width:44px;}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+.reveal.visible{opacity:1;transform:none;}
+.reveal-delay-1{transition-delay:0.1s;}
+.reveal-delay-2{transition-delay:0.2s;}
+.reveal-delay-3{transition-delay:0.3s;}
+
+/* promise */
+.promise{padding:130px 56px;display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center;border-bottom:1px solid var(--line);}
+.promise-h2,.features-h2,.statement-h2,.couples-h2,.proof-h2,.cta-h2{font-family:'DM Sans', sans-serif;font-weight:800;letter-spacing:-2.6px;line-height:1.02;}
+.promise-h2{font-size:clamp(38px,3vw,60px);color:var(--ink);margin-bottom:28px;}
+.promise-body{font-size:16px;font-weight:400;color:var(--ash);line-height:1.8;margin-bottom:42px;max-width:430px;}
+.stat-row{display:flex;gap:46px;flex-wrap:wrap;}
+.stat-num{font-family:'DM Sans', sans-serif;font-size:36px;font-weight:800;letter-spacing:-1.6px;color:var(--ink);line-height:1;}
+.stat-num sup{font-size:18px;font-weight:700;color:var(--or);}
+.stat-desc{font-size:12px;font-weight:500;color:var(--silver);margin-top:4px;letter-spacing:0.02em;}
+.promise-right{position:relative;}
+.promise-visual{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow);overflow:hidden;position:relative;}
+.promise-visual::before{content:'';position:absolute;inset:auto -10% -30% auto;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle, rgba(232,80,2,0.08) 0%, transparent 70%);pointer-events:none;}
+.pv-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px;}
+.pv-title{font-size:11px;font-weight:800;letter-spacing:0.08em;text-transform:uppercase;color:var(--silver);}
+.pv-live{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--or);letter-spacing:0.04em;}
+.pv-main-num{font-family:'DM Sans', sans-serif;font-size:52px;font-weight:800;letter-spacing:-2.6px;color:var(--ink);line-height:1;margin-bottom:8px;}
+.pv-sub{font-size:13px;color:#22c55e;font-weight:500;margin-bottom:24px;}
+.pv-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px;}
+.pv-cell{background:var(--snow);border:1px solid var(--line);border-radius:12px;padding:14px;}
+.pv-cell-label{font-size:10px;font-weight:800;color:var(--silver);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
+.pv-cell-val{font-family:'DM Sans', sans-serif;font-size:20px;font-weight:800;letter-spacing:-0.5px;color:var(--ink);}
+.pv-cell-val.neg{color:var(--or2);}
+.pv-score-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.pv-score-label{font-size:11px;font-weight:800;color:var(--silver);letter-spacing:0.04em;text-transform:uppercase;}
+.pv-score-num{font-family:'DM Sans', sans-serif;font-size:13px;font-weight:800;color:var(--or);}
+.pv-track{height:4px;background:var(--line);border-radius:100px;overflow:hidden;}
+.pv-fill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--or2),var(--or3));transition:width 1.2s cubic-bezier(0.16,1,0.3,1);}
+
+/* features */
+.features-wrap{padding:130px 0 0;border-bottom:1px solid var(--line);}
+.features-header{padding:0 56px;margin-bottom:64px;}
+.features-h2{font-size:clamp(38px,4vw,60px);color:var(--ink);}
+.h-scroll-outer{position:relative;}
+.h-scroll-track{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:0 56px 64px;cursor:grab;}
+.h-scroll-track::-webkit-scrollbar{display:none;}
+.h-scroll-track.dragging{cursor:grabbing;}
+.feat-card{min-width:384px;max-width:384px;border-right:1px solid var(--line);padding:44px 44px 44px 0;scroll-snap-align:start;flex-shrink:0;}
+.feat-card:first-child{padding-left:0;}
+.feat-card:not(:first-child){padding-left:44px;}
+.feat-card:last-child{border-right:none;}
+.feat-icon{width:44px;height:44px;display:flex;align-items:center;justify-content:center;margin-bottom:28px;}
+.feat-icon svg{width:24px;height:24px;stroke:var(--or);fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;}
+.feat-name{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--silver);margin-bottom:12px;}
+.feat-head{font-family:'DM Sans', sans-serif;font-size:22px;font-weight:700;letter-spacing:-0.6px;color:var(--ink);line-height:1.18;margin-bottom:14px;}
+.feat-body{font-size:14px;font-weight:400;color:var(--ash);line-height:1.75;}
+.feat-metric{margin-top:24px;padding-top:24px;border-top:1px solid var(--line);}
+.feat-metric-num{font-family:'DM Sans', sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--ink);}
+.feat-metric-label{font-size:11px;font-weight:500;color:var(--silver);margin-top:2px;}
+.scroll-nav{display:flex;align-items:center;gap:12px;padding:0 56px 64px;}
+.scroll-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;cursor:none;transition:background 0.2s,border-color 0.2s;}
+.scroll-btn:hover{background:var(--or);border-color:var(--or);}
+.scroll-btn:hover svg{stroke:white;}
+.scroll-btn svg{width:16px;height:16px;stroke:var(--ash);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s;}
+.scroll-progress{flex:1;height:1px;background:var(--line);max-width:200px;position:relative;border-radius:100px;overflow:hidden;}
+.scroll-progress-bar{height:100%;background:var(--or);border-radius:100px;width:20%;transition:width 0.2s;}
+
+/* dark statement */
+.statement{background:var(--ink);padding:130px 56px;position:relative;overflow:hidden;}
+.statement::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 78% 38%, rgba(232,80,2,0.16) 0%, transparent 26%), radial-gradient(circle at 16% 76%, rgba(255,255,255,0.03) 0%, transparent 22%);pointer-events:none;}
+.statement-bg-text{position:absolute;right:-30px;top:50%;transform:translateY(-50%);font-family:'DM Sans', sans-serif;font-size:240px;font-weight:800;letter-spacing:-8px;color:rgba(255,255,255,0.03);pointer-events:none;white-space:nowrap;line-height:1;user-select:none;}
+.statement-inner{display:grid;grid-template-columns:1fr 1fr;gap:84px;align-items:center;position:relative;z-index:1;}
+.statement-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--or);margin-bottom:24px;display:flex;align-items:center;gap:8px;}
+.statement-eyebrow::after{content:'';width:28px;height:1px;background:var(--or);}
+.statement-h2{font-size:clamp(40px,4.5vw,66px);color:var(--white);margin-bottom:28px;}
+.statement-body{font-size:16px;font-weight:400;line-height:1.8;color:rgba(255,255,255,0.52);max-width:420px;margin-bottom:42px;}
+.statement-link{font-family:'DM Sans', sans-serif;font-size:13px;font-weight:700;letter-spacing:0.04em;color:var(--or);display:inline-flex;align-items:center;gap:10px;transition:gap 0.2s;}
+.statement-link:hover{gap:16px;}
+.statement-link svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.ai-chat{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:28px;box-shadow:0 20px 70px rgba(0,0,0,0.15);}
+.chat-header{display:flex;align-items:center;gap:10px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.06);margin-bottom:24px;}
+.chat-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--or2),var(--or3));display:flex;align-items:center;justify-content:center;}
+.chat-avatar svg{width:14px;height:14px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;}
+.chat-name{font-size:13px;font-weight:700;color:rgba(255,255,255,0.88);}
+.chat-status{font-size:11px;color:var(--or);font-weight:600;margin-left:auto;}
+.chat-msgs{display:flex;flex-direction:column;gap:14px;margin-bottom:20px;}
+.msg{padding:12px 16px;border-radius:12px;font-size:13.5px;line-height:1.6;max-width:85%;}
+.msg.user{background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.72);align-self:flex-end;border-radius:12px 12px 2px 12px;}
+.msg.ai{background:rgba(232,80,2,0.1);border:1px solid rgba(232,80,2,0.15);color:rgba(255,255,255,0.82);align-self:flex-start;border-radius:12px 12px 12px 2px;}
+.msg.ai strong{color:var(--or);font-weight:700;}
+.chat-input-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 14px;}
+.chat-input-row span{font-size:13px;color:rgba(255,255,255,0.22);flex:1;}
+.chat-send{width:28px;height:28px;border-radius:50%;background:var(--or);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.chat-send svg{width:12px;height:12px;stroke:white;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;}
+
+/* couples */
+.couples{padding:130px 56px;border-bottom:1px solid var(--line);}
+.couples-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:76px;flex-wrap:wrap;gap:24px;}
+.couples-h2{font-size:clamp(38px,4vw,60px);color:var(--ink);}
+.couples-desc{font-size:15px;font-weight:400;color:var(--ash);line-height:1.8;max-width:360px;}
+.couples-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:20px;align-items:stretch;}
+.couple-card{border:1px solid var(--line);border-radius:22px;padding:34px;background:var(--white);transition:transform 0.25s,box-shadow 0.25s;overflow:hidden;}
+.couple-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.07);}
+.couple-card.dark{background:linear-gradient(180deg,#121212 0%, #090909 100%);border-color:transparent;}
+.cc-tag{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:var(--or);margin-bottom:16px;}
+.cc-head{font-family:'DM Sans', sans-serif;font-size:20px;font-weight:700;letter-spacing:-0.6px;color:var(--ink);margin-bottom:10px;line-height:1.2;}
+.couple-card.dark .cc-head{color:var(--white);}
+.cc-body{font-size:13.5px;font-weight:400;color:var(--ash);line-height:1.7;}
+.couple-card.dark .cc-body{color:rgba(255,255,255,0.45);}
+.joint-summary{margin-top:28px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:20px;}
+.joint-label{font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.32);margin-bottom:6px;}
+.joint-val{font-family:'DM Sans', sans-serif;font-size:36px;font-weight:800;letter-spacing:-1.5px;color:var(--white);line-height:1;}
+.joint-change{font-size:12px;font-weight:500;color:#22c55e;margin-top:4px;}
+.member-pair{display:flex;gap:12px;margin-top:16px;}
+.member-pill{flex:1;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:12px;}
+.mp-name{font-size:10px;color:rgba(255,255,255,0.3);font-weight:500;margin-bottom:4px;}
+.mp-val{font-family:'DM Sans', sans-serif;font-size:18px;font-weight:700;color:rgba(255,255,255,0.8);letter-spacing:-0.5px;}
+.couples-stack{display:grid;gap:20px;}
+
+/* social proof */
+.proof{padding:130px 56px;border-bottom:1px solid var(--line);}
+.proof-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:72px;flex-wrap:wrap;gap:20px;}
+.proof-h2{font-size:clamp(38px,4vw,58px);color:var(--ink);}
+.proof-note{font-size:14px;color:var(--silver);font-weight:400;max-width:260px;line-height:1.7;}
+.testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-radius:20px;overflow:hidden;}
+.tcard{background:var(--snow);padding:38px;transition:background 0.2s;}
+.tcard:hover{background:var(--white);}
+.tcard-quote{font-size:15px;font-weight:400;color:#444;line-height:1.8;margin-bottom:28px;font-style:italic;}
+.tcard-author{display:flex;align-items:center;gap:12px;}
+.tcard-init{width:38px;height:38px;border-radius:50%;background:var(--or);color:var(--white);font-family:'DM Sans', sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.tcard-name{font-size:13px;font-weight:700;color:var(--ink);}
+.tcard-city{font-size:11px;color:var(--silver);margin-top:1px;}
+
+/* CTA */
+.cta-final{padding:160px 56px;text-align:center;border-bottom:1px solid var(--line);position:relative;overflow:hidden;}
+.cta-final::before{content:'';position:absolute;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(232,80,2,0.08) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.cta-pre{font-size:10px;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;color:var(--or);margin-bottom:22px;display:block;position:relative;z-index:1;}
+.cta-h2{font-size:clamp(44px,6vw,88px);font-weight:800;letter-spacing:-3px;line-height:0.96;color:var(--ink);margin-bottom:28px;position:relative;z-index:1;}
+.cta-h2 span{display:block;color:transparent;-webkit-text-stroke:1.5px var(--ink);}
+.cta-sub{font-size:16px;font-weight:400;color:var(--ash);line-height:1.8;max-width:430px;margin:0 auto 46px;position:relative;z-index:1;}
+.cta-btns{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;position:relative;z-index:1;}
+.btn-cta-ghost{background:rgba(255,255,255,0.6);}
+.cta-micro{font-size:12px;color:var(--silver);margin-top:18px;position:relative;z-index:1;}
+
+.cta-final{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.cta-content{
+  max-width: 700px;
+}
+
+.cta-pre{
+  display: inline-block;
+  margin-bottom: 1rem;
+}
+
+.cta-h2{
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  margin-bottom: 1.5rem;
+}
+
+.cta-sub{
+  font-size: 1.125rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 550px;
+}
+
+.cta-btns{
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.cta-image{
+  position: relative;
+}
+
+.cta-image img{
+  width: 100%;
+  height: 520px;
+  object-fit: cover;
+  border-radius: 28px;
+  display: block;
+}
+
+.cta-micro{
+  opacity: .7;
+}
+
+@media (max-width: 900px){
+  .cta-final{
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2.5rem;
+  }
+
+  .cta-content{
+    max-width: 100%;
+  }
+
+  .cta-sub{
+    max-width: 100%;
+  }
+
+  .cta-btns{
+    justify-content: center;
+  }
+
+  .cta-image{
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .cta-image img{
+    height: 400px;
+  }
+}
+
+/* footer */
+footer{background:var(--ink);padding:72px 56px 44px;}
+.footer-top-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:56px;border-bottom:1px solid rgba(255,255,255,0.06);}
+.footer-brand p{font-size:13px;color:rgba(255,255,255,0.32);line-height:1.8;margin-top:14px;max-width:250px;font-weight:400;}
+.footer-col h5{font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:18px;}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px;}
+.footer-col a{font-size:13px;color:rgba(255,255,255,0.42);font-weight:400;transition:color 0.2s;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;padding-top:32px;flex-wrap:wrap;gap:16px;}
+.footer-bottom p{font-size:12px;color:rgba(255,255,255,0.2);}
+.footer-legal{display:flex;gap:20px;}
+.footer-legal a{font-size:12px;color:rgba(255,255,255,0.2);transition:color 0.2s;}
+
+/* responsive */
+@media(max-width:1180px){
+  .hero-container{
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .hero-visual{
+    height: auto;
+  }
+
+  .card-main{
+    position: relative;
+  }
+
+  .card-top,
+  .card-bottom{
+    display: none;
+  }
+
+  .live-widget{
+    display: none;
+  }
+}
+
+@media(max-width:1024px){
+  nav{
+    padding: 0 24px;
+  }
+
+  .nav-center{
+    display: none;
+  }
+
+  .hero{
+    padding: 108px 24px 64px;
+  }
+
+  .promise,
+  .statement,
+  .couples,
+  .proof,
+  .cta-final{
+    padding: 82px 24px;
+  }
+
+  .features-header,
+  .h-scroll-track,
+  .scroll-nav{
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+  .promise,
+  .statement-inner,
+  .couples-grid{
+    grid-template-columns: 1fr;
+  }
+
+  .testimonials{
+    grid-template-columns: 1fr;
+  }
+
+  .footer-top-row{
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  footer{
+    padding: 56px 24px 32px;
+  }
+}
+
+@media(max-width:760px){
+  body{
+    cursor: auto;
+  }
+
+  #cursor,
+  #cursor-ring{
+    display: none;
+  }
+
+  .hero h1{
+    font-size: clamp(42px, 12vw, 56px);
+  }
+
+  .hero-container{
+    gap: 24px;
+  }
+
+  .hero-actions,
+  .cta-btns,
+  .member-pair{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cta-btns a,
+  .hero-actions a{
+    width: 100%;
+  }
+
+  .couples-top,
+  .proof-top{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-top-row{
+    grid-template-columns: 1fr;
+  }
+
+  .feat-card{
+    min-width: 320px;
+    max-width: 320px;
+    padding-right: 28px;
+  }
+
+  .feat-card:not(:first-child){
+    padding-left: 28px;
+  }
+
+  .cta-final{
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 2rem;
+  }
+
+  .cta-content{
+    max-width: 100%;
+  }
+
+  .cta-image{
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .cta-image img{
+    height: 320px;
+  }
+
+  .cta-btns{
+    justify-content: center;
+  }
+}
+@media(max-width:480px){
+  .hero{padding-top:96px;}
+  .hero-h1{font-size:clamp(42px,14vw,56px);}
+  .hero-media{min-height:380px;}
+  .pv-main-num{font-size:42px;}
+  .counter-num{font-size:40px;}
+  .cta-h2{letter-spacing:-2px;}
+}
+
+/* SVG helper */
+.icon{display:inline-flex;align-items:center;justify-content:center;}
+
+
+@media (max-width: 760px){
+  .h-scroll-track{
+    margin-left: 30px;
+  }
+}
+
+
+.hero #hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* prevents it from “pushing layout” */
+  z-index: 0;
+  pointer-events: none;
+  display: block;
+}
+
+.btn-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 22px;
+  border-radius: 10px;
+
+  background: #E85002;
+  color: #ffffff;
+
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 25px rgba(108, 123, 255, 0.25);
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(108, 123, 255, 0.35);
+}
+
+/* GHOST BUTTON */
+.btn-cta-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 14px 22px;
+  border-radius: 10px;
+
+  background: transparent;
+  color: #0f172a;
+
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+
+  border: 1px solid rgba(15, 23, 42, 0.15);
+
+  transition: all 0.2s ease;
+}
+
+.btn-cta-ghost:hover {
+  border-color: rgba(108, 123, 255, 0.5);
+  color: E85002;
+  transform: translateY(-2px);
+}
+
+
+
+
+@media (max-width: 760px){
+
+  .hero-container{
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 32px;
+  }
+
+  .hero-content{
+    order: 1;
+    width: 100%;
+  }
+
+  .hero-visual{
+    order: 2;
+    width: 100%;
+    height: auto;
+  }
+
+  .card-main{
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .card-main img{
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+@media (max-width: 760px){
+  .hero-visual {
+    height: 300px !important;
+  }
+}
+
+
+
+
+
+
+.reveal,
+.bounce-in,
+.slide-left,
+.slide-right,
+.zoom-in{
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.reveal{
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-left{
+  transform: translateX(-28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.slide-right{
+  transform: translateX(28px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+
+.zoom-in{
+  transform: scale(0.94);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.visible.slide-left,
+.visible.slide-right{
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.visible.zoom-in{
+  opacity: 1;
+  transform: scale(1);
+}
+
+.bounce-in{
+  transform: translateY(18px) scale(0.96);
+}
+
+.bounce-in.visible{
+  opacity: 1;
+  animation: bounceIn 0.85s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes bounceIn{
+  0%{
+    transform: translateY(18px) scale(0.96);
+    opacity: 0;
+  }
+  60%{
+    transform: translateY(-8px) scale(1.02);
+    opacity: 1;
+  }
+  80%{
+    transform: translateY(4px) scale(0.99);
+  }
+  100%{
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.stagger > *{
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.stagger.visible > *{
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger.visible > *:nth-child(1){ transition-delay: 0.05s; }
+.stagger.visible > *:nth-child(2){ transition-delay: 0.12s; }
+.stagger.visible > *:nth-child(3){ transition-delay: 0.19s; }
+.stagger.visible > *:nth-child(4){ transition-delay: 0.26s; }
+.stagger.visible > *:nth-child(5){ transition-delay: 0.33s; }
+
+@media (prefers-reduced-motion: reduce){
+  *{
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal,
+  .slide-left,
+  .slide-right,
+  .zoom-in,
+  .bounce-in,
+  .stagger > *{
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="main-nav">
+  <a href="#" class="nav-wordmark" aria-label="NeuBank home">
+    <img src="https://res.cloudinary.com/diizxxnhm/image/upload/v1782155957/Group_33_1_iyiy1o.png" alt="NeuBank Logo" class="nav-logo">
+  </a>
+  <ul class="nav-center">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#ai">AI Coach</a></li>
+    <li><a href="#couples">Couples</a></li>
+    <li><a href="#proof">Proof</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="#" class="nav-login">Log in</a>
+    <a href="#" class="nav-signup">Sign up</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-container">
+
+    <!-- LEFT CONTENT -->
+    <div class="hero-content">
+      <div class="badge">Introducing NeuBank OS</div>
+
+      <h1>
+        Banking that feels like a
+        <span class="accent">financial operating system</span>
+      </h1>
+
+      <p>
+        Send, save, invest, and manage money; all in one unified, intelligent interface built for modern finance.
+      </p>
+
+      <div class="hero-actions">
+        <a href="#" class="btn-primary">Get Early Access</a>
+        <a href="#" class="btn-secondary">View Demo</a>
+      </div>
+
+      <div class="trust-line">
+        Trusted by founders, creators, and digital-first businesses.
+      </div>
+    </div>
+
+    <!-- RIGHT VISUAL STACK -->
+    <div class="hero-visual">
+
+      <div class="visual-card card-main">
+        <img src="https://res.cloudinary.com/diizxxnhm/image/upload/v1782174167/hh9t3_z5v1vv.jpg" alt="NeuBank">
+      </div>
+
+      <!-- <div class="visual-card card-top">
+        <img src="https://your-cloudinary-url.com/card-ui.jpg" alt="Card Interface">
+      </div>
+
+      <div class="visual-card card-bottom">
+        <img src="https://your-cloudinary-url.com/analytics.jpg" alt="Analytics Preview">
+      </div> -->
+
+    </div>
+
+  </div>
+
+
+  
+
+
+</section>
+
+<div class="ticker-bar">
+  <div class="ticker-inner" id="ticker">
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Net Worth Tracking <b>Live updates</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Debt Tracking <b>Full visibility</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> AI Financial Coach <b>Personal guidance</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Credit Health <b>Insights + actions</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Family Finance <b>Shared planning</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> NeuBank Score™ <b>Financial health score</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Money Clubs <b>Goal accountability</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Financial Forecasting <b>Future planning</b></span>
+
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Net Worth Tracking <b>Live updates</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Debt Tracking <b>Full visibility</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> AI Financial Coach <b>Personal guidance</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Credit Health <b>Insights + actions</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Family Finance <b>Shared planning</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> NeuBank Score™ <b>Financial health score</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Money Clubs <b>Goal accountability</b></span>
+    <span class="ticker-item"><span class="ticker-sep">◆</span> Financial Forecasting <b>Future planning</b></span>
+  </div>
+</div>
+
+<section class="promise" id="promise">
+  <div class="promise-left reveal">
+    <div class="section-tag">The full picture</div>
+    <h2 class="promise-h2">Most people know their balance.<br/>Almost none know their wealth.</h2>
+    <p class="promise-body">NeuBank connects every account, investment, loan, and obligation you have into a single number that actually means something; your net worth, updated live.</p>
+    <div class="stat-row">
+      <div class="stat-block"><div class="stat-num">360<sup>°</sup></div><div class="stat-desc">Financial view</div></div>
+      <div class="stat-block"><div class="stat-num">0<sup>₦</sup></div><div class="stat-desc">Fees to start</div></div>
+      <div class="stat-block"><div class="stat-num">1</div><div class="stat-desc">Dashboard for everything</div></div>
+    </div>
+  </div>
+  <div class="promise-right reveal reveal-delay-2">
+    <div class="promise-visual">
+      <div class="pv-header"><span class="pv-title">Net Worth Overview</span><span class="pv-live"><span class="pulse-dot" style="width:5px;height:5px;margin-right:4px;"></span>Live</span></div>
+      <div class="pv-main-num" id="pv-counter">₦4,820,000</div>
+      <div class="pv-sub">▲ +₦340,000 this month</div>
+      <div class="pv-grid">
+        <div class="pv-cell"><div class="pv-cell-label">Total Assets</div><div class="pv-cell-val">₦6.2M</div></div>
+        <div class="pv-cell"><div class="pv-cell-label">Total Debt</div><div class="pv-cell-val neg">₦1.38M</div></div>
+        <div class="pv-cell"><div class="pv-cell-label">Monthly Cash Flow</div><div class="pv-cell-val">₦210k</div></div>
+        <div class="pv-cell"><div class="pv-cell-label">Savings</div><div class="pv-cell-val">₦950k</div></div>
+      </div>
+      <div class="pv-score-row"><span class="pv-score-label">NeuBank Score™</span><span class="pv-score-num">82 / 100</span></div>
+      <div class="pv-track"><div class="pv-fill" id="score-bar" style="width:0%"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="features-wrap" id="features">
+  <div class="features-header reveal">
+    <div class="section-tag">Everything you need</div>
+    <h2 class="features-h2">Built for wealth builders,<br/>not just savers.</h2>
+  </div>
+  <div class="h-scroll-outer">
+    <div class="h-scroll-track" id="feat-scroll">
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+          <polyline points="16 7 22 7 22 13"></polyline>
+        </svg>
+      </div>
+      <div class="feat-name">Net Worth Tracking</div>
+      <div class="feat-head">See your wealth, not just your balance</div>
+      <div class="feat-body">Connect cash, savings, investments, property, loans, and other obligations to view your net worth in one live dashboard.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">Live</div>
+        <div class="feat-metric-label">Net worth updates in real time</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+          <line x1="1" y1="10" x2="23" y2="10"></line>
+        </svg>
+      </div>
+      <div class="feat-name">Debt Tracking</div>
+      <div class="feat-head">Keep every obligation in view</div>
+      <div class="feat-body">Track outstanding balances, repayment amounts, due dates, interest costs, and debt-to-income ratio in one place.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">₦0</div>
+        <div class="feat-metric-label">Missed obligations hidden</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <div class="feat-name">NeuBank Score™</div>
+      <div class="feat-head">A broader measure of financial health</div>
+      <div class="feat-body">Track savings habits, wealth growth, debt management, income consistency, and financial resilience in one simple score.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">100pt</div>
+        <div class="feat-metric-label">Built for wealth builders</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"></circle>
+          <polyline points="12 6 12 12 16 14"></polyline>
+        </svg>
+      </div>
+      <div class="feat-name">Forecasting</div>
+      <div class="feat-head">Understand where your money is headed</div>
+      <div class="feat-body">See end-of-month balances, savings growth, debt payoff timelines, and net worth projections based on your current finances.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">12mo</div>
+        <div class="feat-metric-label">Rolling financial outlook</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <div class="feat-name">Money Clubs</div>
+      <div class="feat-head">Build progress with accountability</div>
+      <div class="feat-body">Join savings and debt challenges like Emergency Fund Sprint, Debt-Free Challenge, and No-Spend Month with others.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">Group</div>
+        <div class="feat-metric-label">Goal-based accountability</div>
+      </div>
+    </div>
+
+    <div class="feat-card">
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+      </div>
+      <div class="feat-name">Credit Health</div>
+      <div class="feat-head">Know where your credit stands</div>
+      <div class="feat-body">Monitor credit score, utilization, payment history, and improvement opportunities with clear actions you can take.</div>
+      <div class="feat-metric">
+        <div class="feat-metric-num">Real</div>
+        <div class="feat-metric-label">Actionable credit insights</div>
+      </div>
+    </div>
+  </div>
+    <div class="scroll-nav">
+      <button class="scroll-btn" id="scroll-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+      <button class="scroll-btn" id="scroll-next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+      <div class="scroll-progress"><div class="scroll-progress-bar" id="scroll-prog"></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="statement" id="ai">
+  <div class="statement-bg-text">AI</div>
+  <div class="statement-inner">
+    <div class="statement-left reveal">
+      <div class="statement-eyebrow">AI Financial Coach</div>
+      <h2 class="statement-h2">The advisor you actually talk to.</h2>
+      <p class="statement-body">Ask real questions about your actual numbers. NeuBank's AI coach knows your income, your debt, your goals; and gives answers that are specific to your situation, not generic guidance copy-pasted from a blog.</p>
+      <a href="#" class="statement-link">Try it now<svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+    <div class="statement-right reveal reveal-delay-2">
+      <div class="ai-chat">
+        <div class="chat-header">
+          <div class="chat-avatar"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <span class="chat-name">NeuBank AI</span>
+          <span class="chat-status">● Online</span>
+        </div>
+        <div class="chat-msgs" id="chat-msgs">
+          <div class="msg user">How long until I'm debt-free?</div>
+          <div class="msg ai">At your current repayment of <strong>₦98,000/month</strong>, you'll clear your ₦1.38M in <strong>14 months</strong>. Adding ₦20k/month cuts that to <strong>11 months</strong> and saves you ₦34,000 in interest.</div>
+          <div class="msg user">What should I do with my next salary?</div>
+          <div class="msg ai">Your emergency fund is at <strong>95%</strong>; top it off first (₦25k). Then I'd redirect the rest toward your investment goal. You'll hit <strong>₦1M invested</strong> by August at that pace.</div>
+        </div>
+        <div class="chat-input-row"><span>Ask your AI coach anything...</span><div class="chat-send"><svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="couples" id="family-finance">
+  <div class="couples-top reveal">
+    <div>
+      <div class="section-tag">Family Finance</div>
+      <h2 class="couples-h2">Build wealth<br/>together.</h2>
+    </div>
+    <p class="couples-desc">
+      Money works better when the whole household is aligned. NeuBank helps families track shared goals, view household progress, and plan together with clarity.
+    </p>
+  </div>
+
+  <div class="couples-grid">
+    <div class="couple-card dark reveal">
+      <div class="cc-tag">Family Dashboard</div>
+      <div class="cc-head">One view for the household</div>
+      <div class="cc-body">
+        See shared goals, household progress, and combined financial visibility in one place as every connected account updates.
+      </div>
+      <div class="joint-summary">
+        <div class="joint-label">Household Net Worth</div>
+        <div class="joint-val">₦12,400,000</div>
+        <div class="joint-change">▲ +₦820,000 this month</div>
+        <div class="member-pair">
+          <div class="member-pill"><div class="mp-name">Paul Nwoye</div><div class="mp-val">₦8.2M</div></div>
+          <div class="member-pill"><div class="mp-name">Chioma Nwoye</div><div class="mp-val">₦5.6M</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="couples-stack">
+      <div class="couple-card reveal reveal-delay-1">
+        <div class="cc-tag">Shared Goals</div>
+        <div class="cc-head">Plan for what matters most</div>
+        <div class="cc-body">
+          Save for school fees, home upgrades, major purchases, emergency funds, and long-term family goals together.
+        </div>
+      </div>
+
+      <div class="couple-card reveal reveal-delay-2">
+        <div class="cc-tag">Privacy Controls</div>
+        <div class="cc-head">Collaborate without oversharing</div>
+        <div class="cc-body">
+          Keep personal accounts private while still contributing to shared household goals and family-wide planning.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="proof" id="proof">
+  <div class="proof-top reveal">
+    <div>
+      <div class="section-tag">Real users</div>
+      <h2 class="proof-h2">Clarity that<br/>changes behavior.</h2>
+    </div>
+    <p class="proof-note">
+      From first-time users to long-term planners; here’s what changed when they saw their full financial picture.
+    </p>
+  </div>
+
+  <div class="testimonials reveal">
+    <div class="tcard">
+      <p class="tcard-quote">
+        "I never really understood my net worth before NeuBank. Seeing everything in one place changed how I manage money completely; I paid off debt faster just because I could finally see the full picture."
+      </p>
+      <div class="tcard-author">
+        <div class="tcard-init">T</div>
+        <div>
+          <div class="tcard-name">Tunde Okafor</div>
+          <div class="tcard-city">Software Engineer; Lagos</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <p class="tcard-quote">
+        "The Family Dashboard helped us finally align as a household. We stopped guessing, started planning properly, and now we work toward shared goals with clarity."
+      </p>
+      <div class="tcard-author">
+        <div class="tcard-init" style="background:var(--or2);">A</div>
+        <div>
+          <div class="tcard-name">Adaeze Nwosu</div>
+          <div class="tcard-city">Marketing Director; Abuja</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tcard">
+      <p class="tcard-quote">
+        "The AI coach didn’t give generic advice; it used my actual numbers to show me what to change. That alone helped me become debt-free earlier than expected."
+      </p>
+      <div class="tcard-author">
+        <div class="tcard-init" style="background:var(--ink2);">E</div>
+        <div>
+          <div class="tcard-name">Emeka Eze</div>
+          <div class="tcard-city">Business Owner; Port Harcourt</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+
+  <div class="cta-content">
+    <span class="cta-pre">Start today</span>
+
+    <h2 class="cta-h2">
+      Your wealth<br>
+      <span>won't wait.</span>
+    </h2>
+
+    <p class="cta-sub">
+      Track your net worth, spending, savings, investments, and debt in real time; and get a clear view of your financial progress as it changes. Simple to start, built for real financial clarity.
+    </p>
+
+    <div class="cta-btns">
+      <a href="#" class="btn-cta">Create Free Account</a>
+      <a href="#" class="btn-cta-ghost">See Demo</a>
+    </div>
+
+    <p class="cta-micro">
+      No credit card required · Free plan forever
+    </p>
+  </div>
+
+  <div class="cta-image">
+    <img
+      src="https://res.cloudinary.com/diizxxnhm/image/upload/v1782174937/JsMaY_amilmt.jpg"
+      alt="Woman using Neubank"
+    >
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-top-row">
+    <div class="footer-brand">
+      <a href="#" class="nav-wordmark" aria-label="NeuBank home">
+        <img src="https://res.cloudinary.com/diizxxnhm/image/upload/v1782155957/Group_33_1_iyiy1o.png" alt="NeuBank Logo" class="nav-logo">
+      </a>
+      <p>The operating system for your financial life. Track, grow, and protect everything you've built.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Product</h5>
+      <ul><li><a href="#">Net Worth</a></li><li><a href="#">Debt Manager</a></li><li><a href="#">AI Coach</a></li><li><a href="#">NeuBank Score™</a></li><li><a href="#">Money Clubs</a></li><li><a href="#">Forecasting</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h5>Plans</h5>
+      <ul><li><a href="#">Personal</a></li><li><a href="#">Couples</a></li><li><a href="#">Family</a></li><li><a href="#">Pricing</a></li></ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul><li><a href="#">About</a></li><li><a href="#">Blog</a></li><li><a href="#">Careers</a></li><li><a href="#">Security</a></li><li><a href="#">Contact</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 NeuBank Technologies Ltd. All rights reserved.</p>
+    <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+  </div>
+</footer>
+
+<script>
+const cur = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+
+let mx = 0, my = 0, rx = 0, ry = 0;
+
+/* =========================
+   CURSOR SYSTEM
+========================= */
+if (cur && ring) {
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    cur.style.left = mx + 'px';
+    cur.style.top = my + 'px';
+    document.body.classList.add('hovering');
+  });
+
+  document.addEventListener('mousedown', () => document.body.classList.add('clicking'));
+  document.addEventListener('mouseup', () => document.body.classList.remove('clicking'));
+
+  function rafRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(rafRing);
+  }
+  rafRing();
+}
+
+/* =========================
+   NAV DARK MODE
+========================= */
+const nav = document.getElementById('main-nav');
+
+if (nav) {
+  window.addEventListener('scroll', () => {
+    const darkSections = ['statement'];
+    let isDark = false;
+
+    darkSections.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top <= 72 && r.bottom >= 72) isDark = true;
+    });
+
+    nav.classList.toggle('dark-nav', isDark);
+  }, { passive: true });
+}
+
+/* =========================
+   HERO COUNTER
+========================= */
+(function () {
+  const el = document.getElementById('hero-counter');
+  if (!el) return;
+
+  const target = 4820000;
+  const dur = 2200;
+  let start = null;
+
+  function ease(t) {
+    return 1 - Math.pow(1 - t, 4);
+  }
+
+  function fmt(n) {
+    return n >= 1000000
+      ? '₦' + (n / 1000000).toFixed(2) + 'M'
+      : '₦' + Math.round(n).toLocaleString('en-NG');
+  }
+
+  function tick(ts) {
+    if (!start) start = ts;
+    const p = Math.min((ts - start) / dur, 1);
+    el.textContent = fmt(ease(p) * target);
+
+    if (p < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      el.textContent = fmt(target);
+      setInterval(() => {
+        const jitter = (Math.random() - 0.3) * 8000;
+        el.textContent = fmt(target + jitter);
+      }, 3500);
+    }
+  }
+
+  setTimeout(() => requestAnimationFrame(tick), 600);
+})();
+
+/* =========================
+   REVEAL ON SCROLL
+========================= */
+(function () {
+  const revealEls = document.querySelectorAll('.reveal');
+  if (!revealEls.length) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('visible');
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => obs.observe(el));
+})();
+
+/* =========================
+   SCORE BAR
+========================= */
+(function () {
+  const bar = document.getElementById('score-bar');
+  if (!bar) return;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        bar.style.width = '82%';
+        obs.disconnect();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  obs.observe(bar);
+})();
+
+/* =========================
+   FEATURED SLIDER (UNCHANGED LOGIC)
+========================= */
+(function () {
+  const track = document.getElementById('feat-scroll');
+  const prog = document.getElementById('scroll-prog');
+  const prev = document.getElementById('scroll-prev');
+  const next = document.getElementById('scroll-next');
+
+  if (!track || !prog || !prev || !next) return;
+
+  const cardW = 384 + 44;
+
+  function updateProg() {
+    const max = track.scrollWidth - track.clientWidth;
+    const pct = max > 0 ? (track.scrollLeft / max) * 100 : 0;
+    prog.style.width = Math.max(10, Math.min(100, pct + 20)) + '%';
+  }
+
+  prev.addEventListener('click', () =>
+    track.scrollBy({ left: -cardW, behavior: 'smooth' })
+  );
+
+  next.addEventListener('click', () =>
+    track.scrollBy({ left: cardW, behavior: 'smooth' })
+  );
+
+  track.addEventListener('scroll', updateProg, { passive: true });
+
+  let isDown = false, startX = 0, sl = 0;
+
+  track.addEventListener('mousedown', e => {
+    isDown = true;
+    track.classList.add('dragging');
+    startX = e.pageX - track.offsetLeft;
+    sl = track.scrollLeft;
+  });
+
+  track.addEventListener('mouseleave', () => {
+    isDown = false;
+    track.classList.remove('dragging');
+  });
+
+  track.addEventListener('mouseup', () => {
+    isDown = false;
+    track.classList.remove('dragging');
+  });
+
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = sl - (x - startX) * 1.2;
+  });
+
+  updateProg();
+})();
+
+/* =========================
+   CHAT SIMULATION
+========================= */
+(function () {
+  const container = document.getElementById('chat-msgs');
+  if (!container) return;
+
+  const newMsgs = [
+    { role: 'user', text: 'Can I afford to invest ₦200k right now?' },
+    {
+      role: 'ai',
+      text:
+        'After your upcoming expenses and debt payment, you have <strong>₦310k</strong> free this month. Investing ₦200k leaves a comfortable ₦110k buffer. I\'d say yes; and your investment goal moves to <strong>78% complete</strong>.'
+    }
+  ];
+
+  let triggered = false;
+
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && !triggered) {
+        triggered = true;
+        let delay = 3200;
+
+        newMsgs.forEach(m => {
+          setTimeout(() => {
+            const div = document.createElement('div');
+            div.className = 'msg ' + m.role;
+            div.innerHTML = m.text;
+            div.style.opacity = '0';
+            div.style.transform = 'translateY(10px)';
+            div.style.transition = 'opacity 0.4s,transform 0.4s';
+
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+
+            requestAnimationFrame(() => {
+              div.style.opacity = '1';
+              div.style.transform = 'none';
+            });
+          }, delay);
+
+          delay += m.role === 'user' ? 1200 : 2400;
+        });
+      }
+    });
+  }, { threshold: 0.5 });
+
+  obs.observe(container);
+})();
+
+/* =========================
+   ✅ INTRO ANIMATIONS (NEW)
+========================= */
+(function () {
+  const hero = document.querySelector('.hero');
+  if (!hero) return;
+
+  const items = hero.querySelectorAll('.hero-content > *');
+
+  // initial state
+  items.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  });
+
+  function runIntro() {
+    let delay = 200;
+
+    items.forEach(el => {
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, delay);
+
+      delay += 180;
+    });
+  }
+
+  window.addEventListener('load', () => {
+    setTimeout(runIntro, 300);
+  });
+})();
+</script>
+</body>
+</html>
