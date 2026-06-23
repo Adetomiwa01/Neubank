@@ -275,10 +275,10 @@ nav.dark-nav .nav-login{color:rgba(255,255,255,0.56);}
 .features-wrap{padding:130px 0 0;border-bottom:1px solid var(--line);}
 .features-header{padding:0 56px;margin-bottom:64px;}
 .features-h2{font-size:clamp(38px,4vw,60px);color:var(--ink);}
-.h-scroll-outer{position:relative;}
+/* .h-scroll-outer{position:relative;}
 .h-scroll-track{display:flex;gap:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:0 56px 64px;cursor:grab;}
 .h-scroll-track::-webkit-scrollbar{display:none;}
-.h-scroll-track.dragging{cursor:grabbing;}
+.h-scroll-track.dragging{cursor:grabbing;} */
 .feat-card{min-width:384px;max-width:384px;border-right:1px solid var(--line);padding:44px 44px 44px 0;scroll-snap-align:start;flex-shrink:0;}
 .feat-card:first-child{padding-left:0;}
 .feat-card:not(:first-child){padding-left:44px;}
@@ -291,14 +291,14 @@ nav.dark-nav .nav-login{color:rgba(255,255,255,0.56);}
 .feat-metric{margin-top:24px;padding-top:24px;border-top:1px solid var(--line);}
 .feat-metric-num{font-family:'DM Sans', sans-serif;font-size:28px;font-weight:800;letter-spacing:-1px;color:var(--ink);}
 .feat-metric-label{font-size:11px;font-weight:500;color:var(--silver);margin-top:2px;}
-.scroll-nav{display:flex;align-items:center;gap:12px;padding:0 56px 64px;}
+/* .scroll-nav{display:flex;align-items:center;gap:12px;padding:0 56px 64px;}
 .scroll-btn{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:transparent;display:flex;align-items:center;justify-content:center;cursor:none;transition:background 0.2s,border-color 0.2s;}
 .scroll-btn:hover{background:var(--or);border-color:var(--or);}
 .scroll-btn:hover svg{stroke:white;}
 .scroll-btn svg{width:16px;height:16px;stroke:var(--ash);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s;}
 .scroll-progress{flex:1;height:1px;background:var(--line);max-width:200px;position:relative;border-radius:100px;overflow:hidden;}
 .scroll-progress-bar{height:100%;background:var(--or);border-radius:100px;width:20%;transition:width 0.2s;}
-
+ */
 /* dark statement */
 .statement{background:var(--ink);padding:130px 56px;position:relative;overflow:hidden;}
 .statement::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 78% 38%, rgba(232,80,2,0.16) 0%, transparent 26%), radial-gradient(circle at 16% 76%, rgba(255,255,255,0.03) 0%, transparent 22%);pointer-events:none;}
@@ -632,11 +632,11 @@ footer{background:var(--ink);padding:72px 56px 44px;}
 .icon{display:inline-flex;align-items:center;justify-content:center;}
 
 
-@media (max-width: 760px){
+/* @media (max-width: 760px){
   .h-scroll-track{
     margin-left: 30px;
   }
-}
+} */
 
 
 .hero #hero-canvas {
@@ -854,6 +854,93 @@ footer{background:var(--ink);padding:72px 56px 44px;}
     transform: none !important;
   }
 }
+
+.features .container{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:24px;
+}
+
+.feat-card{
+  height:100%;
+}
+
+@media (max-width: 1024px){
+  .features-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px){
+  .features .container{
+    padding:0 16px;
+  }
+
+  .features-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+.features-wrap{
+  padding:130px 0 0;
+  border-bottom:1px solid var(--line);
+}
+
+.features-header{
+  max-width:1280px;
+  margin:0 auto 64px;
+  padding:0 24px;
+}
+
+.features .container{
+  max-width:1280px;
+  margin:0 auto;
+  padding:0 24px;
+}
+
+.features-grid{
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0, 1fr));
+  gap:40px;
+  padding: 0px 56px;
+  padding-bottom: 50px;
+}
+
+.feat-card{
+  min-width:0;
+  max-width:none;
+  padding:44px 0 0;
+  border-right:none;
+  height:100%;
+}
+
+.feat-card:first-child,
+.feat-card:not(:first-child){
+  padding-left:0;
+}
+
+@media (max-width: 1024px){
+  .features-grid{
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px){
+  .features .container,
+  .features-header{
+    padding:0 16px;
+  }
+
+  .features-grid{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 <body>
@@ -979,115 +1066,110 @@ footer{background:var(--ink);padding:72px 56px 44px;}
   </div>
 </section>
 
-<section class="features-wrap" id="features">
+<section class="features-wrap" id="">
   <div class="features-header reveal">
     <div class="section-tag">Everything you need</div>
     <h2 class="features-h2">Built for wealth builders,<br/>not just savers.</h2>
   </div>
-  <div class="h-scroll-outer">
-    <div class="h-scroll-track" id="feat-scroll">
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-          <polyline points="16 7 22 7 22 13"></polyline>
-        </svg>
+   <div class="container">
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+        </div>
+        <div class="feat-name">Net Worth Tracking</div>
+        <div class="feat-head">See your wealth, not just your balance</div>
+        <div class="feat-body">Connect cash, savings, investments, property, loans, and other obligations to view your net worth in one live view.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">Live</div>
+          <div class="feat-metric-label">Net worth updates in real time</div>
+        </div>
       </div>
-      <div class="feat-name">Net Worth Tracking</div>
-      <div class="feat-head">See your wealth, not just your balance</div>
-      <div class="feat-body">Connect cash, savings, investments, property, loans, and other obligations to view your net worth in one live dashboard.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">Live</div>
-        <div class="feat-metric-label">Net worth updates in real time</div>
-      </div>
-    </div>
 
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-          <line x1="1" y1="10" x2="23" y2="10"></line>
-        </svg>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+        </div>
+        <div class="feat-name">Debt Tracking</div>
+        <div class="feat-head">Keep every obligation in view</div>
+        <div class="feat-body">Track outstanding balances, repayment amounts, due dates, interest costs, and debt-to-income ratio in one place.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">₦0</div>
+          <div class="feat-metric-label">Hidden obligations, ever</div>
+        </div>
       </div>
-      <div class="feat-name">Debt Tracking</div>
-      <div class="feat-head">Keep every obligation in view</div>
-      <div class="feat-body">Track outstanding balances, repayment amounts, due dates, interest costs, and debt-to-income ratio in one place.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">₦0</div>
-        <div class="feat-metric-label">Missed obligations hidden</div>
-      </div>
-    </div>
 
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-          <path d="M2 17l10 5 10-5"></path>
-          <path d="M2 12l10 5 10-5"></path>
-        </svg>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+            <path d="M2 17l10 5 10-5"></path>
+            <path d="M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="feat-name">NeuBank Score™</div>
+        <div class="feat-head">A broader measure of financial health</div>
+        <div class="feat-body">Track savings habits, wealth growth, debt management, income consistency, and financial resilience in one simple score.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">100pt</div>
+          <div class="feat-metric-label">Built for wealth builders</div>
+        </div>
       </div>
-      <div class="feat-name">NeuBank Score™</div>
-      <div class="feat-head">A broader measure of financial health</div>
-      <div class="feat-body">Track savings habits, wealth growth, debt management, income consistency, and financial resilience in one simple score.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">100pt</div>
-        <div class="feat-metric-label">Built for wealth builders</div>
-      </div>
-    </div>
 
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <circle cx="12" cy="12" r="10"></circle>
-          <polyline points="12 6 12 12 16 14"></polyline>
-        </svg>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+        </div>
+        <div class="feat-name">Forecasting</div>
+        <div class="feat-head">Understand where your money is headed</div>
+        <div class="feat-body">See end-of-month balances, savings growth, debt payoff timelines, and net worth projections based on your current finances.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">12mo</div>
+          <div class="feat-metric-label">Rolling financial outlook</div>
+        </div>
       </div>
-      <div class="feat-name">Forecasting</div>
-      <div class="feat-head">Understand where your money is headed</div>
-      <div class="feat-body">See end-of-month balances, savings growth, debt payoff timelines, and net worth projections based on your current finances.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">12mo</div>
-        <div class="feat-metric-label">Rolling financial outlook</div>
-      </div>
-    </div>
 
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-        </svg>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+        </div>
+        <div class="feat-name">Money Clubs</div>
+        <div class="feat-head">Build progress with accountability</div>
+        <div class="feat-body">Join savings and debt challenges like Emergency Fund Sprint, Debt-Free Challenge, and No-Spend Month with others.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">Group</div>
+          <div class="feat-metric-label">Goal-based accountability</div>
+        </div>
       </div>
-      <div class="feat-name">Money Clubs</div>
-      <div class="feat-head">Build progress with accountability</div>
-      <div class="feat-body">Join savings and debt challenges like Emergency Fund Sprint, Debt-Free Challenge, and No-Spend Month with others.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">Group</div>
-        <div class="feat-metric-label">Goal-based accountability</div>
-      </div>
-    </div>
 
-    <div class="feat-card">
-      <div class="feat-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-        </svg>
+      <div class="feat-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+          </svg>
+        </div>
+        <div class="feat-name">Credit Health</div>
+        <div class="feat-head">Know where your credit stands</div>
+        <div class="feat-body">Monitor credit score, utilization, payment history, and improvement opportunities with clear actions you can take.</div>
+        <div class="feat-metric">
+          <div class="feat-metric-num">Real</div>
+          <div class="feat-metric-label">Actionable credit insights</div>
+        </div>
       </div>
-      <div class="feat-name">Credit Health</div>
-      <div class="feat-head">Know where your credit stands</div>
-      <div class="feat-body">Monitor credit score, utilization, payment history, and improvement opportunities with clear actions you can take.</div>
-      <div class="feat-metric">
-        <div class="feat-metric-num">Real</div>
-        <div class="feat-metric-label">Actionable credit insights</div>
-      </div>
-    </div>
-  </div>
-    <div class="scroll-nav">
-      <button class="scroll-btn" id="scroll-prev" aria-label="Previous"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
-      <button class="scroll-btn" id="scroll-next" aria-label="Next"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
-      <div class="scroll-progress"><div class="scroll-progress-bar" id="scroll-prog"></div></div>
     </div>
   </div>
 </section>
@@ -1412,6 +1494,7 @@ if (nav) {
 /* =========================
    FEATURED SLIDER (UNCHANGED LOGIC)
 ========================= */
+/* =========================
 (function () {
   const track = document.getElementById('feat-scroll');
   const prog = document.getElementById('scroll-prog');
@@ -1466,6 +1549,7 @@ if (nav) {
 
   updateProg();
 })();
+========================= */
 
 /* =========================
    CHAT SIMULATION
